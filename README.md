@@ -1,9 +1,54 @@
-# aruco-pose-estimation
-This repository contains all the code you need to generate an ArucoTag, detect ArucoTags in images and videos, and then use the detected tags to estimate the pose of the object.
+# Position 
 
 
 This software is partially base on [this repository](https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python).
 
+
+# Requirements
+- Raspberry Pi (tested on Raspberry Pi 5) with Raspberry Pi OS (bookworm) installed
+- Raspberry Pi Camera Module 3 (Wide or Regular)
+- Caliper or ruler for measurements
+
+# Installation and Setup
+Connect the camera to the Raspberry Pi and turn it on.
+Ensure the camera is detected and works using the following commands.
+
+```commandline
+rpicam-hello --list-cameras
+rpicam-hello
+```
+
+Clone and install requirements:
+
+```commandline
+git clone https://github.com/flyinglightspeck/aruco-pose-estimation.git
+cd aruco-pose-estimation
+bash setup.sh
+```
+
+# Active Virtual Environment Before Running
+```commandline
+source .env/bin/activate
+```
+
+# Marker Detection
+Run the following command to start the program. It will run for 10 seconds and detect AruCo marker in each frame in 
+realtime. Follow the example to view or save the results:
+
+Preview camera images:
+```commandline
+python pi_pose_estimation.py -i pi3 -r 720p -t 10 --marker_size 0.02 --live
+```
+
+Save the results:
+```commandline
+python pi_pose_estimation.py -i pi3 -r 720p -t 10 --marker_size 0.02 --save -e 200mm
+```
+
+Note: if you want to process the collected data using this software pass the distance you are measuring, in 
+millimeters, similar to the above command (-e [DIST]mm). This will enable the software to compute the error.
+
+Modify other arguments based on the help as needed:
 
 ```commandline
 usage: pi_pose_estimation.py [-h] -i CAMERA [-s MARKER_SIZE] [-k K_MATRIX] [-d D_COEFF] [-m MARKER] [-c DICT] [-t DURATION] [-n SAMPLE] [-w WIDTH] [-y HEIGHT] [-v] [-r RES] [-g] [-o] [-sm] [-b] [-mr] [-e NOTE] [-l LENSPOS]
@@ -40,3 +85,51 @@ options:
   -l LENSPOS, --lenspos LENSPOS
                         Lens position for manual focus
 ```
+
+
+# Process Results
+Run the following command to process the results. It will generate a table of the experiments sorted based on the 
+measured distance. 
+
+```commandline
+python process.py
+```
+
+By default, it reads the results form the `results` directory. You can change it by passing the `-i` argument.
+
+
+# Calibration
+We have already calibrated a total of 9 configurations using 3 cameras and 3 resolutions:
+
+Cameras:
+- pi3: Raspberry Pi Camera
+- pi3w: Raspberry Pi Camera Wide
+- hqpi6mm: Raspberry Pi Camera HQ with [6mm Wide Angle Lens](https://www.pishop.us/product/6mm-wide-angle-lens-for-raspberry-pi-hq-camera-cs/) 
+
+Resolutions:
+- 480p (640x480px)
+- 720p (1280x720px)
+- 1080p (1920x1080px)
+
+After experimenting with different configurations and considering aspects like minimum and maximum size of the 
+marker, minimum and maximum distance between camera and marker, frame rate, and marker detection rate we decided to 
+use pi3 and pi3w cameras at 720p resolution for our experiments.
+
+If you need to recalibrate your cameras, follow these steps. Make sure it's displayed at a 1:1 scale otherwise 
+adjust the input parameters of the calibration program. The default is a 9x6 checkerboard with 0.0254m (1inch) squares.
+Take 10 to 15 images of the checkerboard pattern from different angles and distances using the following command:
+
+```commandline
+python get_images.py -i CAMERA -r RES
+```
+
+Press `s` to take images and `esc` to quit. The images will be saved in the `calibration/CAMERA/RES` directory.
+
+After takeing images, run the following to compute calibration matrix and distortion coefficients. They will be 
+saved in the same directory.
+
+```commandline
+python calibration.py -i CAMERA -r RES
+```
+
+Note: set width, height, and square_size if you are using a different checkerboard.

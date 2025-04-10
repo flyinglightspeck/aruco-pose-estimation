@@ -56,16 +56,16 @@ def calibrate(dirpath, square_size, width, height, visualize=False):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument("-d", "--dir", required=True, help="Path to folder containing checkerboard images for calibration")
+    ap.add_argument("-i", "--camera", type=str, required=True, help="One of arducam, pi3, pi3w, or pihq6mm")
+    ap.add_argument("-r", "--res", type=str, required=True, help="Image resolution, one of 480p, 720p, 1080p, or 1440p")
     ap.add_argument("-w", "--width", type=int, help="Width of checkerboard (default=9)",  default=9)
     ap.add_argument("-t", "--height", type=int, help="Height of checkerboard (default=6)", default=6)
-    ap.add_argument("-s", "--square_size", type=float, default=0.01, help="Length of one edge in metres (default=0.01)")
+    ap.add_argument("-s", "--square_size", type=float, default=0.0254, help="Length of one edge in metres (default=0.01)")
     ap.add_argument("-v", "--visualize", type=str, default="False", help="To visualize each checkerboard image")
     args = vars(ap.parse_args())
-    
-    dirpath = args['dir']
-    # 2.4 cm == 0.024 m
-    # square_size = 0.024
+
+    dirpath = os.path.join("calibration", args["camera"], args["res"])
+
     square_size = args['square_size']
 
     width = args['width']

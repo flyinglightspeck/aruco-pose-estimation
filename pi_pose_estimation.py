@@ -292,7 +292,8 @@ if __name__ == '__main__':
             exit()
         #     picam2.configure(picam2.create_preview_configuration(sensor={"output_size": mode["size"], "bit_depth": mode["bit_depth"]}, main={"size": image_size}))
         # cam_conf = picam2.create_preview_configuration(main={"format": "XRGB8888", "size": image_size})
-        cam_conf = picam2.create_video_configuration(main={"format": "XRGB8888", "size": image_size})
+        # "format": "XRGB8888",
+        cam_conf = picam2.create_video_configuration(main={"size": image_size})
         picam2.configure(cam_conf)
         if args["max_fps"]:
             picam2.set_controls({"FrameDurationLimits": (8333, 8333)})

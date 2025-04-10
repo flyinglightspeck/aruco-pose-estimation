@@ -4,6 +4,10 @@ It includes utilities to capture images, calibrate cameras, and summarize collec
 module supports variety of fiducial marker libraries, including ArUco, AprilTag, STag, abd custom 4-point marker 
 (4 bright markers arranged in 3d with a dark background).
 
+Raspberry Pi Camera Module 3, ArdCcam Mini 16MP IMX519, CrazyFlie AiDeck Camera are supported. 
+
+Position estimations are computed in realtime and can be broadcast over UDP socket.
+
 Some modules of this software is partially base on [this repository](https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python).
 
 # Requirements

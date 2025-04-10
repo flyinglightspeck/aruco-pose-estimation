@@ -205,7 +205,7 @@ def pose_estimation_p4(im, k, d):
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--camera", required=True, type=str, help="One of arducam, aideck, pi3, pi3w, or pihq6mm")
-    ap.add_argument("-s", "--marker_size", type=float, default=0.02, help="Dimention of marker (meter)")
+    ap.add_argument("-s", "--marker_size", type=float, default=0.02, help="Dimension of marker (meter)")
     ap.add_argument("-k", "--K_Matrix", help="Path to calibration matrix (numpy file)")
     ap.add_argument("-d", "--D_Coeff", help="Path to distortion coefficients (numpy file)")
     ap.add_argument("-m", "--marker", type=str, default="ARUCO", help="Type of tag to detect. One of ARUCO, APRILTAG, STAG, or P4")
@@ -336,6 +336,8 @@ if __name__ == '__main__':
                     im = color_img
         else:
             im = picam2.capture_array()
+            cv2.imshow('Estimated Pose', im)
+
 
         if marker_type == 'P4':
             mid = time.time()
@@ -368,9 +370,9 @@ if __name__ == '__main__':
         
         logging.info(f"ids:\n{ids}\n\nposisions:\n{pos}\n\norientations:\n{ori}\n\n")
         
-        if args["live"]:
-            cv2.rectangle(output,(image_size[0]//2-50,image_size[1]//2-50),(image_size[0]//2+50,image_size[1]//2+50),(0,255,0),1)
-            cv2.imshow('Estimated Pose', output)
+        # if args["live"]:
+        #     cv2.rectangle(output,(image_size[0]//2-50,image_size[1]//2-50),(image_size[0]//2+50,image_size[1]//2+50),(0,255,0),1)
+            # cv2.imshow('Estimated Pose', output)
         
         if end - exp_start >= args["duration"]:
             break

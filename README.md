@@ -8,7 +8,7 @@ Raspberry Pi Camera Module 3, ArdCcam Mini 16MP IMX519, CrazyFlie AiDeck Camera 
 
 Position estimations are computed in realtime and can be broadcast over UDP socket.
 
-Some modules of this software is partially base on [this repository](https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python).
+Some modules of this software are partially base on [this repository](https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python).
 
 # Requirements
 - Raspberry Pi (tested on Raspberry Pi 5) with Raspberry Pi OS (bookworm) installed

@@ -1,8 +1,10 @@
-# Position 
+# Position Estimation Using Markers and Raspberry Pi Camera
+This repository contains modules to compute position of a marker or multiple markers using a camera and Raspberry Pi.
+It includes utilities to capture images, calibrate cameras, and summarize collected data. The position estimation 
+module supports variety of fiducial marker libraries, including ArUco, AprilTag, STag, abd custom 4-point marker 
+(4 bright markers arranged in 3d with a dark background).
 
-
-This software is partially base on [this repository](https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python).
-
+Some modules of this software is partially base on [this repository](https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python).
 
 # Requirements
 - Raspberry Pi (tested on Raspberry Pi 5) with Raspberry Pi OS (bookworm) installed

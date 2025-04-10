@@ -9,6 +9,13 @@ This software is partially base on [this repository](https://github.com/GSNCodes
 - Raspberry Pi Camera Module 3 (Wide or Regular)
 - Caliper or ruler for measurements
 
+# Experiment Setup
+We used the following setup to conduct experiments using a printed ArUco marker and an LCD display.
+
+![image](assets/printed_setup.png)
+
+![image](assets/lcd_setup.png)
+
 # Installation and Setup
 Connect the camera to the Raspberry Pi and turn it on.
 Ensure the camera is detected and works using the following commands.

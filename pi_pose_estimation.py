@@ -292,8 +292,7 @@ if __name__ == '__main__':
             exit()
         #     picam2.configure(picam2.create_preview_configuration(sensor={"output_size": mode["size"], "bit_depth": mode["bit_depth"]}, main={"size": image_size}))
         # cam_conf = picam2.create_preview_configuration(main={"format": "XRGB8888", "size": image_size})
-        # "format": "XRGB8888",main={"size": image_size}
-        cam_conf = picam2.create_video_configuration()
+        cam_conf = picam2.create_video_configuration(main={"format": "XRGB8888", "size": image_size})
         picam2.configure(cam_conf)
         if args["max_fps"]:
             picam2.set_controls({"FrameDurationLimits": (8333, 8333)})
@@ -337,8 +336,6 @@ if __name__ == '__main__':
                     im = color_img
         else:
             im = picam2.capture_array()
-            cv2.imshow('Estimated Pose', im)
-
 
         if marker_type == 'P4':
             mid = time.time()
@@ -371,9 +368,9 @@ if __name__ == '__main__':
         
         logging.info(f"ids:\n{ids}\n\nposisions:\n{pos}\n\norientations:\n{ori}\n\n")
         
-        # if args["live"]:
-        #     cv2.rectangle(output,(image_size[0]//2-50,image_size[1]//2-50),(image_size[0]//2+50,image_size[1]//2+50),(0,255,0),1)
-            # cv2.imshow('Estimated Pose', output)
+        if args["live"]:
+            cv2.rectangle(output,(image_size[0]//2-50,image_size[1]//2-50),(image_size[0]//2+50,image_size[1]//2+50),(0,255,0),1)
+            cv2.imshow('Estimated Pose', output)
         
         if end - exp_start >= args["duration"]:
             break

@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 
@@ -84,4 +85,7 @@ def compute_quadratic(x, y, name):
 
 
 if __name__ == '__main__':
-    create_table("./aug5")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i", "--input", default="results", type=str, help="Path to results directory")
+    args = ap.parse_args()
+    create_table(args.input)

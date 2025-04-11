@@ -149,7 +149,8 @@ Note: set width, height, and square_size if you are using a different checkerboa
 
 # Swarical Paper (MM'24)
 The results from experiments conducted using this software were used in the implementation of Swarical software and 
-reported in the Swarical paper [2].
+reported in the Swarical paper [2]. The code to generate the plots used in the Figures 6-9 of the paper are in the 
+`cameraplots.nb` Mathematica notebook.
 
 # References
 [1] https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python

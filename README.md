@@ -8,7 +8,7 @@ Raspberry Pi Camera Module 3, ArdCcam Mini 16MP IMX519, CrazyFlie AiDeck Camera 
 
 Position estimations are computed in realtime and can be broadcast over UDP socket.
 
-Some modules of this software are partially base on [this repository](https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python).
+Some modules of this software are partially base on this repository [1].
 
 # Requirements
 - Raspberry Pi (tested on Raspberry Pi 5) with Raspberry Pi OS (bookworm) installed
@@ -146,3 +146,12 @@ python calibration.py -i CAMERA -r RES
 ```
 
 Note: set width, height, and square_size if you are using a different checkerboard.
+
+# Swarical Paper (MM'24)
+The results from experiments conducted using this software were used in the implementation of Swarical software and 
+reported in the Swarical paper [2].
+
+# References
+[1] https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python
+[2] Hamed Alimohammadzadeh, and Shahram Ghandeharizadeh. 2024. Swarical: An Integrated Hierarchical Approach to 
+Localizing Flying Light Specks. In Proceedings of the 32nd ACM International Conference on Multimedia (MM '24). Association for Computing Machinery, New York, NY, USA. https://doi.org/10.1145/3664647.3681080

@@ -11,7 +11,7 @@ Position estimations are computed in realtime and can be broadcast over UDP sock
 Some modules of this software are partially base on this repository [1].
 
 # Requirements
-- Raspberry Pi (tested on Raspberry Pi 5) with Raspberry Pi OS (bookworm) installed
+- Raspberry Pi 5 with Raspberry Pi OS (bookworm) installed
 - Raspberry Pi Camera Module 3 (Wide or Regular)
 - Caliper or ruler for measurements
 

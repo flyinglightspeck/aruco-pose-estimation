@@ -171,6 +171,7 @@ reported in the Swarical paper [2]. The code to generate the plots used in the F
 # References
 
 [1] https://github.com/GSNCodes/ArUCo-Markers-Pose-Estimation-Generation-Python
+
 [2] Hamed Alimohammadzadeh, and Shahram Ghandeharizadeh. 2024. Swarical: An Integrated Hierarchical Approach to
 Localizing Flying Light Specks. In Proceedings of the 32nd ACM International Conference on Multimedia (MM '24).
 Association for Computing Machinery, New York, NY, USA. https://doi.org/10.1145/3664647.3681080

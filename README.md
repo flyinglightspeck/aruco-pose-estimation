@@ -56,24 +56,24 @@ source .env/bin/activate
 # Marker Detection
 
 Run the following command to start the program. It will run for 10 seconds and detect AruCo marker in each frame in
-realtime. Follow the example to view or save the results:
+realtime. Follow the example to view or save the results.
 
-Preview camera images:
-
-```commandline
-python pi_pose_estimation.py -i pi3 -r 720p -t 10 --marker_size 0.02 --live
-```
-
-Save the results:
+Preview camera images without saving results:
 
 ```commandline
-python pi_pose_estimation.py -i pi3 -r 720p -t 10 --marker_size 0.02 --save -e 200mm
+python pi_pose_estimation.py -i pi3 -r 720p -t 10 --marker_size 0.0047 --live
 ```
 
-Note: if you want to process the collected data using this software pass the distance you are measuring, in
+Run the experiment and save the results:
+
+```commandline
+python pi_pose_estimation.py -i pi3 -r 720p -t 10 --marker_size 0.0047 --save -e 80mm
+```
+
+Note: if you want to process the collected data using this software, pass the distance you are measuring, in
 millimeters, similar to the above command (-e [DIST]mm). This will enable the software to compute the error.
 
-Modify other arguments based on the help as needed:
+The above commands are for a 4.7mm marker placed at 80mm distance using the Raspberry Pi Camera Module with a regular lens. Modify the arguments based on the help as needed:
 
 ```commandline
 usage: pi_pose_estimation.py [-h] -i CAMERA [-s MARKER_SIZE] [-k K_MATRIX] [-d D_COEFF] [-m MARKER] [-c DICT] [-t DURATION] [-n SAMPLE] [-w WIDTH] [-y HEIGHT] [-v] [-r RES] [-g] [-o] [-sm] [-b] [-mr] [-e NOTE] [-l LENSPOS]

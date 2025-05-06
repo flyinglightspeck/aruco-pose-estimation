@@ -1,6 +1,7 @@
 import cv2
 from picamera2 import Picamera2, Preview
 from libcamera import controls
+import numpy as np
 import time
 import argparse
 from consts import res_map, camera_map
@@ -33,7 +34,9 @@ if __name__ == "__main__":
     camera_config = picam2.create_preview_configuration(main={"format": "XRGB8888", "size": image_size})
     picam2.configure(camera_config)
     frame_time = 1000000 / 30
-    picam2.set_controls({"FrameDurationLimits": [frame_time, frame_time]})
+    frame_duration = np.array([frame_time, frame_time], dtype=np.int64)
+    picam2.set_controls({"FrameDurationLimits": frame_duration})
+
     if args["camera"] is "pi3" or args["camera"] is "pi3w":
         picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
     picam2.start()

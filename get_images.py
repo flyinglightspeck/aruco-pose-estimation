@@ -32,7 +32,8 @@ if __name__ == "__main__":
     print(modes)
     camera_config = picam2.create_preview_configuration(main={"format": "XRGB8888", "size": image_size})
     picam2.configure(camera_config)
-    picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
+    if args["camera"] is "pi3" or args["camera"] is "pi3w":
+        picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
     picam2.start()
     time.sleep(2)
     num = 0

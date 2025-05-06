@@ -6,6 +6,7 @@ camera_map = {
     "pi3": 0,
     "pi3w": 0,
     "pihq6mm": 0,
+    "gs": 0
 }
 
 res_map = {

@@ -162,6 +162,28 @@ python calibration.py -i CAMERA -r RES
 
 Note: set width, height, and square_size if you are using a different checkerboard.
 
+# LCD and Arduino
+Connect the LCD to the Arduino Uno board based on [this guide](https://www.waveshare.com/wiki/1.3inch_LCD_Module#Arduino_hardware_connection).
+Follow [this guide](https://www.waveshare.com/wiki/1.3inch_LCD_Module#Arduino_Software_Description) to download the required libraries for Arduino and test the LCD.
+After testing the LCD, download the `Arduino/LCD_1inch3.ino` file of this repository and replace it with the existing on of the downloaded software from the Waveshare wiki. 
+Adjust the marker size based on the following table, then upload the code to the Arduino to view the Arudo marker.
+
+W         |  marker size (mm)
+----------|--------
+30        |  17.6
+20        |  11.7
+10        |  5.9
+9	        |  5.3
+8	        |  4.7
+7	        |  4.1
+6	        |  3.5
+5	        |  2.9
+4	        |  2.3
+3	        |  1.8
+2	        |  1.2
+1	        |  0.6
+
+
 # Swarical Paper (MM'24)
 
 The results from experiments conducted using this software were used in the implementation of Swarical software and

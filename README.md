@@ -124,7 +124,7 @@ By default, it reads the results form the `results` directory. You can change it
 
 # Calibration
 
-We have already calibrated a total of 9 configurations using 3 cameras and 3 resolutions:
+We have already calibrated a total of 9 configurations using 3 cameras and 3 resolutions. We calibrated with autofocus enabled:
 
 Cameras:
 

@@ -314,6 +314,7 @@ if __name__ == '__main__':
     while True:
         start = time.time()
 
+        #  The following block applies to Crazyflie's AiDeck
         if args["camera"] == "aideck":
             packetInfoRaw = rx_bytes(4)
             [length, routing, function] = struct.unpack('<HBB', packetInfoRaw)
@@ -337,6 +338,7 @@ if __name__ == '__main__':
         else:
             im = picam2.capture_array()
 
+        #  The following code block applies to 4 white circular markers on a black background
         if marker_type == 'P4':
             mid = time.time()
             output, ids, pos, ori = pose_estimation_p4(im, k, d)

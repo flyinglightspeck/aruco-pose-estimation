@@ -4,9 +4,18 @@ import os
 
 import numpy as np
 from matplotlib import pyplot as plt
+from tabulate import tabulate
 
 
 def create_table(src_dir):
+    header = [
+        "actual distance (mm)",
+        "detection rate (%)",
+        "measured distance (mm) (% error)",
+        "x, y, z (mm)",
+        "roll, pitch, yaw (°)",
+        "datetime"
+    ]
     rows = []
     x = []
     y = []
@@ -23,7 +32,7 @@ def create_table(src_dir):
                     data = json.load(f)
                     rate = data['stats']['detection_rate'] * 100
                     dist = data['stats']['avg_distance'][0] * 1000
-                    pose = ", ".join([f"{p*1000:.2f}" for p in data['stats']['avg_position'][0]])
+                    pose = ", ".join([f"{p * 1000:.2f}" for p in data['stats']['avg_position'][0]])
                     ori = ", ".join([f"{o:.2f}" for o in data['stats']['avg_abs_orientation'][0]])
                     gt_dist = int(data['args']['note'].split('mm')[0])
                     ref = "_".join(root.split('/')[-1].split('_')[0:2])
@@ -33,20 +42,20 @@ def create_table(src_dir):
                     pitch_err = abs(data['stats']['avg_abs_orientation'][0][1])
                     yaw_err = abs(data['stats']['avg_abs_orientation'][0][2])
 
-                    rows.append(f"{gt_dist}\t{rate:.2f}\t{dist:.2f} ({dist_err:.2f}%)\t{pose}\t{ori}\t{ref}")
+                    rows.append([gt_dist, f"{rate:.2f}", f"{dist:.2f} ({dist_err:.2f}%)", pose, ori, ref])
                     x.append(gt_dist)
                     y.append(dist_err)
                     roll.append(roll_err)
                     pitch.append(pitch_err)
                     yaw.append(yaw_err)
 
-    for row in sorted(rows):
-        print(row)
+    rows.sort(key=lambda r:r[0])
+    print("Table of results sorted based of the actual distance:")
+    print(tabulate(rows, headers=header, tablefmt="github"))
 
-    compute_quadratic(x, y, 'dist')
-    compute_quadratic(x, roll, 'roll')
-    compute_quadratic(x, pitch, 'pitch')
-    compute_quadratic(x, yaw, 'yaw')
+    if args.interpolate:
+        print("Interpolated distance error as a function of actual distance:")
+        compute_quadratic(x, y, 'dist')
 
 
 def quadratic_function(x, coefficients):
@@ -62,30 +71,13 @@ def compute_quadratic(x, y, name):
     x = list(sorted_x)
     y = list(reordered_y)
 
-    print(x)
-    print(y)
     error_coefficients = np.polyfit(x, y, 2)
-    print(error_coefficients)
-    # print(quadratic_function(60, error_coefficients))
-    # print(quadratic_function(75, error_coefficients))
-    # print(quadratic_function(80, error_coefficients))
-
-    x1 = np.arange(60, 126, 0.1)
-    y1 = quadratic_function(x1, error_coefficients)
-
-    plt.plot(x, y, '-o')
-    plt.plot(x1, y1)
-    x_ticks = np.arange(60, 130, 5)
-    plt.xticks(x_ticks)
-    plt.xlabel("Distance (mm)")
-    plt.ylabel("Error °")
-    # plt.ylabel("% Error")
-    # plt.show()
-    # plt.savefig(f'aug6/quadratic_function_{name}.png', dpi=300)
+    print("quadratic coefficients:", error_coefficients)
 
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--input", default="results", type=str, help="Path to results directory")
+    ap.add_argument("--interpolate", action="store_true", help="Interpolate distance error as a function of actual distance")
     args = ap.parse_args()
     create_table(args.input)

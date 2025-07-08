@@ -13,7 +13,11 @@ Some modules of this software are partially base on this repository [1].
 
 # Requirements
 
-- Raspberry Pi 5 with Raspberry Pi OS (bookworm) installed.
+- Raspberry Pi 5 with Raspberry Pi OS (bookworm) installed, the following versions are verified to be working:
+  * 2024-03-15 64-bit (Desktop version)
+  * 2024-11-19 64-bit (Desktop version)
+  * 2025-05-13 64-bit (Desktop version)
+   
 - Raspberry Pi Camera Module 3 (Wide or Regular).
 - Caliper or ruler for measurements.
 - 3D printed parts for the Raspberry Pi Camera Module 3 (Wide or Regular) and the holder for the printed paper. The

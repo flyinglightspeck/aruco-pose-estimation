@@ -14,6 +14,7 @@ def create_table(src_dir):
         "measured distance (mm) (% error)",
         "x, y, z (mm)",
         "roll, pitch, yaw (°)",
+        "orientation error (°)",
         "datetime"
     ]
     rows = []
@@ -23,6 +24,8 @@ def create_table(src_dir):
     roll = []
     pitch = []
     yaw = []
+
+    gt_roll, gt_pitch, gt_yaw = args.gt_orientation
 
     for root, dirs, files in os.walk(src_dir):
         for file in files:
@@ -38,18 +41,28 @@ def create_table(src_dir):
                     ref = "_".join(root.split('/')[-1].split('_')[0:2])
                     dist_err = 100 * abs(dist - gt_dist) / gt_dist
 
-                    roll_err = abs(180 - data['stats']['avg_abs_orientation'][0][0])
-                    pitch_err = abs(data['stats']['avg_abs_orientation'][0][1])
-                    yaw_err = abs(data['stats']['avg_abs_orientation'][0][2])
+                    roll_err = abs(gt_roll - data['stats']['avg_abs_orientation'][0][0])
+                    pitch_err = abs(gt_pitch - data['stats']['avg_abs_orientation'][0][1])
+                    yaw_err = abs(gt_yaw - data['stats']['avg_abs_orientation'][0][2])
 
-                    rows.append([gt_dist, f"{rate:.2f}", f"{dist:.2f} ({dist_err:.2f}%)", pose, ori, ref])
+                    err_ori = f"{roll_err:.2f}, {pitch_err:.2f}, {yaw_err:.2f}"
+
+                    rows.append([
+                        gt_dist,
+                        f"{rate:.2f}",
+                        f"{dist:.2f} ({dist_err:.2f}%)",
+                        pose,
+                        ori,
+                        err_ori,
+                        ref
+                    ])
                     x.append(gt_dist)
                     y.append(dist_err)
                     roll.append(roll_err)
                     pitch.append(pitch_err)
                     yaw.append(yaw_err)
 
-    rows.sort(key=lambda r:r[0])
+    rows.sort(key=lambda r: r[0])
     print("Table of results sorted based of the actual distance:")
     print(tabulate(rows, headers=header, tablefmt="github"))
 
@@ -78,6 +91,8 @@ def compute_quadratic(x, y, name):
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--input", default="results", type=str, help="Path to results directory")
-    ap.add_argument("--interpolate", action="store_true", help="Interpolate distance error as a function of actual distance")
+    ap.add_argument("--gt-orientation", default=[180, 0, 90], nargs=3, type=float, help="ground truth roll pitch and yaw, e.g., --gt-orientation 180 0 90")
+    ap.add_argument("--interpolate", action="store_true",
+                    help="Interpolate distance error as a function of actual distance")
     args = ap.parse_args()
     create_table(args.input)

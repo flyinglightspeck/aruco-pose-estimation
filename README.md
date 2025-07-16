@@ -90,7 +90,9 @@ python pi_pose_estimation.py -i pi3 -r 720p -t 10 --marker_size 0.0047 --save -e
 ```
 
 Note: if you want to process the collected data using this software, pass the distance you are measuring, in
-millimeters, similar to the above command (-e [DIST]mm). This will enable the software to compute the error.
+millimeters, similar to the above command (`-e [DIST]mm`). This value should be set to the distance between the marker 
+and the camera's image sensor. If you have followed the instructions to zero the caliper to zero using the camera 
+holder and marker holder, the value shown by the caliper is what should be passed as the `-e` argument.
 
 The above commands are for a 4.7mm marker placed at 80mm distance using the Raspberry Pi Camera Module with a regular
 lens. Modify the arguments based on the help as needed:

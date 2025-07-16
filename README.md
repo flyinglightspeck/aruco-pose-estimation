@@ -14,10 +14,10 @@ Some modules of this software are partially base on this repository [1].
 # Requirements
 
 - Raspberry Pi 5 with Raspberry Pi OS (bookworm) installed, the following versions are verified to be working:
-  * 2024-03-15 64-bit (Desktop version)
-  * 2024-11-19 64-bit (Desktop version)
-  * 2025-05-13 64-bit (Desktop version)
-   
+    * 2024-03-15 64-bit (Desktop version)
+    * 2024-11-19 64-bit (Desktop version)
+    * 2025-05-13 64-bit (Desktop version)
+
 - Raspberry Pi Camera Module 3 (Wide or Regular).
 - Caliper or ruler for measurements.
 - 3D printed parts for the Raspberry Pi Camera Module 3 (Wide or Regular) and the holder for the printed paper. The
@@ -29,9 +29,24 @@ Some modules of this software are partially base on this repository [1].
 
 We used the following setup to conduct experiments using a printed ArUco marker and an LCD display.
 
-![image](assets/printed_setup.png)
+![image](assets/paper_wide_cam.jpeg)
 
-![image](assets/lcd_setup.png)
+![image](assets/lcd_reg_cam_2.jpeg)
+
+Install the lcd or the paper printed marker on the marker holder.
+
+If you are using a caliper, print `caliper_paper_holder.3mf`, `caliper_camera_holder.3mf`, and `lcd_holder.3mf`
+in the `assets/3d_print` directory using a 3D printer. Install the 3D-printed parts on the caliper as shown above. Zero
+the caliper by gently closing its jaws until the holders touch each other without any gaps. This ensures that the
+measured distance accurately reflects the distance between the marker and the camera’s image sensor. See the following
+images to set the zero:
+
+![image](assets/paper_zero.jpeg)
+
+![image](assets/lcd_zero.jpeg)
+
+Finally, install the camera into the camera holder, making sure it is fully seated. Use tape to securely fasten the
+camera to the holder.
 
 # Installation and Setup
 
@@ -77,7 +92,8 @@ python pi_pose_estimation.py -i pi3 -r 720p -t 10 --marker_size 0.0047 --save -e
 Note: if you want to process the collected data using this software, pass the distance you are measuring, in
 millimeters, similar to the above command (-e [DIST]mm). This will enable the software to compute the error.
 
-The above commands are for a 4.7mm marker placed at 80mm distance using the Raspberry Pi Camera Module with a regular lens. Modify the arguments based on the help as needed:
+The above commands are for a 4.7mm marker placed at 80mm distance using the Raspberry Pi Camera Module with a regular
+lens. Modify the arguments based on the help as needed:
 
 ```commandline
 usage: pi_pose_estimation.py [-h] -i CAMERA [-s MARKER_SIZE] [-k K_MATRIX] [-d D_COEFF] [-m MARKER] [-c DICT] [-t DURATION] [-n SAMPLE] [-w WIDTH] [-y HEIGHT] [-v] [-r RES] [-g] [-o] [-sm] [-b] [-mr] [-e NOTE] [-l LENSPOS]
@@ -128,7 +144,8 @@ By default, it reads the results form the `results` directory. You can change it
 
 # Calibration
 
-We have already calibrated a total of 9 configurations using 3 cameras and 3 resolutions. We calibrated with autofocus enabled:
+We have already calibrated a total of 9 configurations using 3 cameras and 3 resolutions. We calibrated with autofocus
+enabled:
 
 Cameras:
 
@@ -167,26 +184,29 @@ python calibration.py -i CAMERA -r RES
 Note: set width, height, and square_size if you are using a different checkerboard.
 
 # LCD and Arduino
-Connect the LCD to the Arduino Uno board based on [this guide](https://www.waveshare.com/wiki/1.3inch_LCD_Module#Arduino_hardware_connection).
-Follow [this guide](https://www.waveshare.com/wiki/1.3inch_LCD_Module#Arduino_Software_Description) to download the required libraries for Arduino and test the LCD.
-After testing the LCD, download the `Arduino/LCD_1inch3.ino` file of this repository and replace it with the existing on of the downloaded software from the Waveshare wiki. 
+
+Connect the LCD to the Arduino Uno board based
+on [this guide](https://www.waveshare.com/wiki/1.3inch_LCD_Module#Arduino_hardware_connection).
+Follow [this guide](https://www.waveshare.com/wiki/1.3inch_LCD_Module#Arduino_Software_Description) to download the
+required libraries for Arduino and test the LCD.
+After testing the LCD, download the `Arduino/LCD_1inch3.ino` file of this repository and replace it with the existing on
+of the downloaded software from the Waveshare wiki.
 Adjust the marker size based on the following table, then upload the code to the Arduino to view the Arudo marker.
 
-W         |  marker size (mm)
-----------|--------
-30        |  17.6
-20        |  11.7
-10        |  5.9
-9	        |  5.3
-8	        |  4.7
-7	        |  4.1
-6	        |  3.5
-5	        |  2.9
-4	        |  2.3
-3	        |  1.8
-2	        |  1.2
-1	        |  0.6
-
+ W  | marker size (mm) 
+----|------------------
+ 30 | 17.6             
+ 20 | 11.7             
+ 10 | 5.9              
+ 9	 | 5.3              
+ 8	 | 4.7              
+ 7	 | 4.1              
+ 6	 | 3.5              
+ 5	 | 2.9              
+ 4	 | 2.3              
+ 3	 | 1.8              
+ 2	 | 1.2              
+ 1	 | 0.6              
 
 # Swarical Paper (MM'24)
 
